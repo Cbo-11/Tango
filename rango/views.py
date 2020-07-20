@@ -2,9 +2,16 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
+from django.shortcuts import render 
 
 def index(request):
-    return HttpResponse("Rango says hey there partner! <br/> <a href='/rango/about/'>About</a>")
+    #construct a dictrionary to pass to the template 
+    #not the boldmessage is the same as in the template 
+    context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
+    #Return a rendered response to the client 
+    #we make use of a shortcyt function to make life easier 
+    #not the first parameter is the templaste
+    return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
     return HttpResponse("Rango says this is the about page! <br/> <a href='/rango/'>Home</a>")
