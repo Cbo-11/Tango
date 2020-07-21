@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render 
 from rango.models import Catagory, Page
+from rango.forms import CatagoryForm
 
 def index(request):
     #Query the database for a list of all catergories 
@@ -30,3 +31,23 @@ def show_catagory(request,catagory_name_slug):
         context_dict['pages']= None
         context_dict['catagory']= None
     return render(request, 'rango/catagory.html', context_dict)
+
+def add_catagory(request):
+    form = CatagoryForm()
+
+    #A HTTP POST?
+    if request.method == 'POST':
+        form = CatagoryForm(request.POST)
+
+        #Have we got a valid form? 
+        if form.is_valid():
+            #Save the new category to the database
+            form.save(commit=True)
+            #Category saved 
+            #direct back to index page
+            return index(request)
+        else:
+            #the supplied form has errors 
+            #print to terminal 
+            print(form.errors)
+    return render(request, 'rango/add_category.html', {'form': form})
