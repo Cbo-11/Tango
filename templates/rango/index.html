@@ -7,13 +7,32 @@
     <body>
         <h1>Finn says...</h1>
         <div>
-            hey there partner!<br/>
-            <strong>{{boldmessage}}</strong><br/>
+            <h2>Most Viewed Categories</h2>
+        {% if categories %}
+        <ul>
+            {% for catagory in categories %}
+            <li><a href="/rango/catagory/{{ catagory.slug }}">{{ catagory.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>There are no categroies present.</strong>
+        {% endif %}
         </div>
         <div>
-            <a href="/rango/about/">About</a><br/>
+            <h2>Most Viewed Pages</h2>
+            {% if pages %}
+        <ul>
+            {% for page in pages %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>       
+            {% endfor %} 
+            </ul>
+            {% else %}
+                <strong>No pages present.</strong>
+            {% endif %}
+        <div>
+            <a href="/rango/about/">About Finn</a><br/>
             <img src= "{% static "images/finn.jpg" %}"
-            alt= "picture of finn" />
+            alt= "picture of finn" style="width: 500px;height: 400px;"/>
         </div>
     </body>
 </html>
