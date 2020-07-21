@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url
-from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.conf.urls import url, include
 from rango import views
+
 
 
 urlpatterns = [
@@ -26,4 +28,4 @@ urlpatterns = [
     #above maps any urls starting with rango
     #to be handles by the rango app
     url(r'^admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
