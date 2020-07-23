@@ -1,0 +1,29 @@
+{% extends 'rango/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+<!--code goes in here -->
+    <h1>Register for Finn</h1>
+    {% if registered %}
+        Finn says: <strong> Thanks For Registering!</strong>
+        <a href="{% url 'index' %}">Return to homepage.</a><br />
+    {% else %}
+        Finn says: <strong>Register Here!</strong><br />
+        <form id="user_form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+        <!-- display each form-->
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+
+        <!-- provide sumbit button-->
+        <input type="submit" name="submit" value="Register" />
+    </form>
+    {% endif %}
+
+
+{% endblock %}

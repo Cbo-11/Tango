@@ -19,7 +19,9 @@
             <strong>No pages in this category.</strong>
         {% endif %}
             <br/>
+            {% if user.is_authenticated %}
             <a href="{% url 'add_page' catagory.slug %}">Add a new Page</a><br/>
+            {% endif %}
     {% else %}
         The specified category does not exist!
 
