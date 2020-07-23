@@ -18,7 +18,7 @@ class Catagory(models.Model):
         return self.name
 
 class Page(models.Model):
-    catagory = models.ForeignKey(Catagory, on_delete=models.DO_NOTHING)
+    catagory = models.ForeignKey(Catagory, on_delete= models.DO_NOTHING)
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
