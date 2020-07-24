@@ -29,6 +29,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Registraion 
+#if true users can register 
+REGISTRATION_OPEN = True
+
+#One week activation window, can be altered
+ACCOUNT_ACTIVATION_DAYS = 7
+#If True the user will be auto logged in 
+REGISTRATION_AUTO_LOGIN = True
+#Page to arrive on once logged in 
+LOGIN_REDIRECT_URL = '/rango/'
+#page redirect to if not logged in and try to reach pages that require authentication
+LOGIN_URL = '/accounts/login/'
+
 
 # Application definition
 
@@ -39,7 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango'
+    'rango',
+    'registration'
 ]
 
 MIDDLEWARE = [
@@ -86,6 +100,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 
@@ -105,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LOGIN_URL = '/rango/login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/

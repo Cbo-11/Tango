@@ -18,9 +18,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
+from registration.backends.simple.urls import RegistrationView
 from rango import views
 
-
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self,user):
+        return '/rango/'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -28,4 +31,9 @@ urlpatterns = [
     #above maps any urls starting with rango
     #to be handles by the rango app
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/register/$',MyRegistrationView.as_view(),name= 'registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^password/', include('registration.backends.simple.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
