@@ -7,9 +7,11 @@
 
 {% block body_block %}
             {% if catagory %}
-    <h1>Add a Page to {{catagory.name}}</h1>
 
-        <form id="page_form" method="post" action="/rango/catagory/{{ catagory.slug }}/add_page/" novalidate>
+<br />
+        <form role="form" id="page_form" method="post" action="/rango/catagory/{{ catagory.slug }}/add_page/" novalidate>
+
+        <h2 class="form-siginin-heading">Add a Page to <a href="/rango/catagory/{{ catagory.slug }}">{{catagory.name}}</a></h2>
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
             {{hidden}}
@@ -17,12 +19,12 @@
         
         {% for field in form.visible_fields %}
             {{field.errors}}
-            {{field.help_text}}
-            {{field}}
+            {{field.help_text}}<br />
+            {{field}}<br />
             
         {% endfor %}
         <br/>
-        <input type="submit" name="submit" value="Add Page"/>
+        <Button class="btn btn-primary" type="submit" name="submit">Add Page</Button>
         </form>
             {% else %}
                 The Specified category does not exist!

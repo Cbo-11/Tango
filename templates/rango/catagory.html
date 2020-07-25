@@ -7,14 +7,16 @@
 
 {% block body_block %}
     {% if catagory %}
-        <h1>{{ catagory.name }}</h1>
+    <br />
+        <div class="col-lg-6">  
+        <h2>{{ catagory.name }}</h2>
+        <br />
         {% if pages %}
-        <ul>
+        <ul class="list-group">
             {% for page in pages %}
-            <li><a href="{{ page.url }}">{{ page.title }}</a></li>       
+            <li class="list-group-item" ><a href="{{ page.url }}">{{ page.title }}</a></li>       
             {% endfor %} 
         </ul>
-
         {% else %}
             <strong>No pages in this category.</strong>
         {% endif %}
@@ -24,6 +26,8 @@
             {% endif %}
     {% else %}
         The specified category does not exist!
+        </div>
+
 
     {% endif %}
 {% endblock %}

@@ -6,14 +6,12 @@
 {% endblock %}
 
 {% block body_block %}
-        <h1>About</h1>
+    <div class="jumbotron"> 
+    <h1 class="form-signin-heading">ABOUT</h1>
+    </div>
         <div>
             This page was put together by Christy Bolland<br/>
             Finn hates cats
         </div>
-        <div>
-            <img src= "{{ MEDIA_URL}}cat.jpeg"
-            alt= "picture of a cat" />
-        </div>
-        <p>Visits: {{ visits }}</p>
+       
 {% endblock %}
