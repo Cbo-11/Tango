@@ -4,11 +4,15 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.shortcuts import render 
+from django.shortcuts import render, redirect 
 from rango.models import Catagory, Page
 from rango.forms import CatagoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+import json
+import urllib.parse
+import urllib.request
+
 
 @login_required
 def restricted(request):
@@ -46,12 +50,22 @@ def show_catagory(request,catagory_name_slug):
 
     try:
         catagory = Catagory.objects.get(slug=catagory_name_slug)
-        pages = Page.objects.filter(catagory=catagory)
+        pages = Page.objects.filter(catagory=catagory).order_by('-views')
         context_dict['pages']= pages
         context_dict['catagory']=catagory
     except Catagory.DoesNotExist:
         context_dict['pages']= None
         context_dict['catagory']= None
+    context_dict['query'] = catagory.name
+    result_list = []
+    if request.method == "POST":
+        query= request.POST['query'].strip()
+
+        if query:
+            result_list = get_results(query)
+            context_dict['query'] = query
+            context_dict['resul_list'] = result_list
+
     return render(request, 'rango/catagory.html', context_dict)
 
 @login_required
@@ -120,3 +134,30 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
     #update/set the visits cookie 
     request.session['visits'] = visits
+
+def track_url(request):
+    page_id= None
+    url = '/rango/'
+    if request.method == "GET":
+        if 'page_id' in request.GET:
+            page_id = request.GET['page_id']
+            try:
+                page=Page.objects.get(id=page_id)
+                page.views = page.views + 1
+                page.save()
+                url = page.url
+            except:
+                pass
+    return redirect(url)
+
+
+def search(request):
+    result_list = []
+
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+    # Run our Webhose search function to get the results list!
+            result_list = run_query(query)
+    return render(request, 'rango/search.html', {'result_list': result_list})
+  

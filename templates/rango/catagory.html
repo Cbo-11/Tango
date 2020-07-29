@@ -14,7 +14,14 @@
         {% if pages %}
         <ul class="list-group">
             {% for page in pages %}
-            <li class="list-group-item" ><a href="{{ page.url }}">{{ page.title }}</a></li>       
+            <li class="list-group-item" >
+                <a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a>
+                {% if page.views > 1 %}
+                     ({{ page.views }} views)
+                {% elif page.views == 1%}
+                    ({{ page.views}} view)
+                {% endif %}
+            </li>       
             {% endfor %} 
         </ul>
         {% else %}
@@ -27,8 +34,31 @@
     {% else %}
         The specified category does not exist!
         </div>
-
-
     {% endif %}
+
+    <div>
+        <form class="form-inline" id="user-form" method="POST" action="{% url 'show_category' catagory.slug %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="text" size="50" name="query" value="{{ query }}" id="query"/>
+            </div>
+            <button class="btn btn-primary" type="submit" name="submit" value="Search">Search</button>
+        </form>
+        <div>
+            {% if result_list %}
+            <h3>Results</h3>
+            <div class="list-group">
+                {% for result in result_list %}
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading ">
+                        <a href="{{ result.link }}">{{ result.title }}</a>
+                    </h4>
+                    <p class="list-group-item-text"> {{ result.summary }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
