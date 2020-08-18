@@ -34,10 +34,19 @@ def populate():
         "url": "http://flask.pocoo.org", "views": 2}
     ]
 
+    php_pages =[]
+    prolog_pages =  []
+    postscript_pages = []
+    programming_pages = []
+
     cat = {
         "Python": {"pages": python_pages, "views": 128, "likes": 64},
         "Django": {"pages": django_pages, "views": 64, "likes": 32},
-        "Other Framworks": {"pages": other_pages, "views": 32, "likes": 16}
+        "Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16},
+        "PHP": {"pages": php_pages, "views": 4, "likes": 5},
+        "Prolog": {"pages": prolog_pages, "views": 0, "likes": 2},
+        "Postscript": {"pages": postscript_pages, "views": 6, "likes": 3},
+        "Programming": {"pages": programming_pages, "views": 0, "likes": 0}
     }
     
 

@@ -20,7 +20,7 @@
         {% if categories %}
         <ul class="list-group">
             {% for catagory in categories %}
-            <li class="list-group-item"><a href="{% url 'show_category' catagory.slug %}">{{ catagory.name }}</a></li>
+            <li class="list-group-item"><a href="{% url 'show_category' catagory.slug %}">{{ catagory.name }}</a><span class="badge badge-pill badge-primary"> {{ catagory.likes }}</span></li>
             {% endfor %}
         </ul>
         {% else %}
@@ -34,7 +34,7 @@
         {% if pages %}
         <ul class="list-group">
             {% for page in pages %}
-            <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a></li>       
+            <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a><span class="badge badge-pill badge-primary"> {{ page.views }}</span></li>       
             {% endfor %} 
             </ul>
             {% else %}

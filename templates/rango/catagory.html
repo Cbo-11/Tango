@@ -10,17 +10,17 @@
     <br />
         <div class="col-lg-6">  
         <h2>{{ catagory.name }}</h2>
+        <div><strong id="like_count">{{ catagory.likes }}</strong> people like this
+        {% if user.is_authenticated %}
+            <button id="likes" data-catid="{{catagory.id}}" class="btn btn-primary btn-sm" type="button">Like</button></div>
+        {% endif %}
         <br />
         {% if pages %}
         <ul class="list-group">
             {% for page in pages %}
             <li class="list-group-item" >
                 <a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a>
-                {% if page.views > 1 %}
-                     ({{ page.views }} views)
-                {% elif page.views == 1%}
-                    ({{ page.views}} view)
-                {% endif %}
+                <span class="badge badge-pill badge-primary"> {{ page.views }} Views</span>
             </li>       
             {% endfor %} 
         </ul>
@@ -35,8 +35,8 @@
         The specified category does not exist!
         </div>
     {% endif %}
-
-    <div>
+    {% if user.is_authenticated %}
+    <div class="col-lg-12">
         <form class="form-inline" id="user-form" method="POST" action="{% url 'show_category' catagory.slug %}">
             {% csrf_token %}
             <div class="form-group">
@@ -53,12 +53,16 @@
                     <h4 class="list-group-item-heading ">
                         <a href="{{ result.link }}">{{ result.title }}</a>
                     </h4>
-                    <p class="list-group-item-text"> {{ result.summary }}</p>
+                    <p class="list-group-item-text">{{ result.summary }}</p>
+                    {% if user.is_authenticated %}
+                    <button data-catid="{{catagory.id}}" data-title="{{ result.title }}" data-url="{{ result.link }}" class="rango-add btn btn-info btn-sm" type="button">Add</button>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
             {% endif %}
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 

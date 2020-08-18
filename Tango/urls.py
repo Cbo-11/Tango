@@ -23,7 +23,7 @@ from rango import views
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self,user):
-        return '/rango/'
+        return reverse('register_profile')
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^accounts/register/$',MyRegistrationView.as_view(),name= 'registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^password/', include('registration.backends.simple.urls')),
+    url(r'^profiles/$', views.list_profiles, name= 'list_profiles'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

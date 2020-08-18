@@ -18,7 +18,7 @@
     <link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="http://v4-alpha.getbootstrap/examples/dashboard/dashboard.css" rel="stylesheet">
+   
   </head>
 <body>
 
@@ -33,11 +33,10 @@
       <li class="nav-item active"><a class="nav-link" href= "{% url 'index' %}">Home</a></li>
       <li class="nav-item"><a class="nav-link" href= "{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
-      
-      <li class="nav-item"><a class="nav-link"  href="{% url 'restricted' %}">Restricted Page</a></li>
       <li class="nav-item"><a class="nav-link" href= "{% url 'add_category' %}">Add New Catagory</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/rango/">Logout</a></li>
-      <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'profile' user.username %}">Profile</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'list_profiles' %}">List Profiles</a></li>
       
       {% else %}
       <li class="nav-item"><a class="nav-link"href= "{% url 'registration_register' %}">Sign Up</a></li>
@@ -48,6 +47,7 @@
 
 </nav>
 
+<br />
 <div class="container-fluid mt-md-5">
   <div class="row">
     <div class="col-2 sidebar">
@@ -61,10 +61,17 @@
         {% endblock %}
     </div>
   </div>
-</div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-      <script src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
-      <script src="http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+</div>  
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" ></script>
+
+
+<script src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<script src="http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+<script src="{% static "js/rango-jquery.js"%}" ></script>   
+<script src="{% static "js/rango-ajax.js"%}"></script>
 
 </body>      
 </html>

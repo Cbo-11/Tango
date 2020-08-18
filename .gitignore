@@ -1,3 +1,6 @@
-'config/api_keys.py'
-'*.pyc'
-'*.key'
+config/api_keys.py
+*.pyc
+*.key
+db.sqlite3
+__pycache__/
+migrations/

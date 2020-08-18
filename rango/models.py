@@ -29,8 +29,8 @@ class Page(models.Model):
         return self.title
 
 class UserProfile(models.Model):
-    #This line is rewquired, link User Profile to a user model instance
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    #This line is required, link User Profile to a user model instance
+    user = models.OneToOneField(User, on_delete= models.CASCADE)
 
     #the additional attributed we want to include 
     website= models.URLField(blank=True)
